@@ -1,0 +1,40 @@
+﻿<Window x:Class="Kwisspel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kwisspel" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <WrapPanel Margin="5">
+                <TextBlock Width="72">New Quiz:</TextBlock>
+                <TextBox Width="200" Text="{Binding SelectedQuiz.Name}"/>
+                <Button Command="{Binding SaveQuiz}" Width="50">Save</Button>
+                <Button Command="{Binding DeleteQuiz}" Width="50">Delete</Button>
+                <Button Command="{Binding ClearQuiz}" Width="50">Clear</Button>
+            </WrapPanel>
+            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Quizes}" Margin="5" SelectedItem="{Binding SelectedQuiz}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                    <DataGridTemplateColumn Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding OpenQuestionManager}">Edit questions</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding PlayQuiz}">Play quiz</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>

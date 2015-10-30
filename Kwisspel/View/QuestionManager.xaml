@@ -1,0 +1,46 @@
+﻿<Window x:Class="Kwisspel.View.QuestionManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Manage questions" Height="600" Width="542">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <WrapPanel Margin="5">
+                <TextBlock Width="98">New Question:</TextBlock>
+                <TextBox Width="176" Text="{Binding SelectedQuestion.Description}"/>
+                <ComboBox ItemsSource="{Binding Categories}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="Category" 
+                          SelectedValue="{Binding SelectedQuestion.Category}" 
+                          SelectedItem="{Binding SelectedQuestion.Category}" 
+                          Width="91"></ComboBox>
+                <Button Command="{Binding SaveQuestion}" Width="50">Save</Button>
+                <Button Command="{Binding DeleteQuestion}" Width="50">Delete</Button>
+                <Button Command="{Binding ClearQuestion}" Width="50">Clear</Button>
+            </WrapPanel>
+            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Questions}" Margin="5" SelectedItem="{Binding SelectedQuestion}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Question" Binding="{Binding Description}" Width="*"/>
+                    <DataGridTextColumn Header="Answers" Binding="{Binding Answers.Count}" Width="100" />
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category.Name}" Width="100" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <WrapPanel Margin="5">
+                <TextBlock Width="98">New Answer:</TextBlock>
+                <TextBox Width="176" Text="{Binding SelectedAnswer.Description}"/>
+                <Button Command="{Binding SaveAnswer}" Width="50">Save</Button>
+                <Button Command="{Binding DeleteAnswer}" Width="50">Delete</Button>
+                <Button Command="{Binding ClearAnswer}" Width="50">Clear</Button>
+            </WrapPanel>
+            <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" ItemsSource="{Binding SelectedQuestion.Answers}" Margin="5" SelectedItem="{Binding SelectedAnswer}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" Header="Answer" Binding="{Binding Description}" Width="*"/>
+                    <DataGridCheckBoxColumn Header="Correct" IsReadOnly="False" Binding="{Binding IsCorrect}" Width="50"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
